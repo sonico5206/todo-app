@@ -38,22 +38,6 @@
     - Количество в процессе
     - Количество выполненных
 
-## Архитектура проекта
-todo-app/\
-├── src/main/java/com/todo/\
-│ ├── Main.java # Точка входа, HTTP сервер (порт 8080)\
-│ ├── Task.java # Модель данных (id, title, description, completed)\
-│ ├── TaskDAO.java # Работа с БД (CRUD операции)\
-│ └── DatabaseManager.java # Создание БД, подключение\
-├── src/main/webapp/\
-│ ├── index.html # Главная страница\
-│ ├── style.css # Стили и адаптивный дизайн\
-│ └── app.js # Логика фронтенда, работа с API\
-├── data/ # Автоматически создается при запуске\
-│└── todo.db # SQLite база данных\
-├── pom.xml # Maven конфигурация\
-└── README.md # Документация
-
 
 ## Запуск с нуля
 
