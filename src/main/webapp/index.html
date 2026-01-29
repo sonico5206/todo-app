@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Todo App</title>
+    <title>Простой Список Задач</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,13 +11,22 @@
     <h1>Простой Список Задач</h1>
 
     <div class="add-task">
-        <input type="text" id="taskTitle" placeholder="Название задачи">
-        <textarea id="taskDesc" placeholder="Описание задачи"></textarea>
-        <button onclick="addTask()">➕ Добавить задачу</button>
+        <h3>+ Добавить новую задачу</h3>
+        <input type="text" id="taskTitle" placeholder="Введите название задачи" autofocus>
+        <textarea id="taskDesc" placeholder="Введите описание задачи (необязательно)"></textarea>
+        <button onclick="addTask()">
+            + Добавить задачу
+        </button>
+        <p class="hint">Нажмите Enter в поле названия для быстрого добавления</p>
     </div>
 
     <div id="tasksList" class="tasks-list">
-        <!-- Задачи будут здесь -->
+        <!-- Задачи будут загружены здесь -->
+    </div>
+
+    <div class="footer">
+        <p>Всего задач: <span id="taskCount">0</span></p>
+        <p>Запущено на Java + SQLite + JavaScript</p>
     </div>
 </div>
 
