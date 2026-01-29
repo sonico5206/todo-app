@@ -1,23 +1,41 @@
 const API_URL = 'http://localhost:8080/api/tasks';
 
-let taskCounter = 0;
+let currentFilter = 'all'; // 'all', 'active', 'completed'
 
 async function loadTasks() {
     try {
         const response = await fetch(API_URL);
         const tasks = await response.json();
-        taskCounter = tasks.length;
-        updateTaskCounter();
-        displayTasks(tasks);
+        updateTaskCounters(tasks);
+        displayTasks(filterTasks(tasks));
     } catch (error) {
         console.error('Error loading tasks:', error);
     }
 }
 
-function updateTaskCounter() {
+function filterTasks(tasks) {
+    switch (currentFilter) {
+        case 'active':
+            return tasks.filter(task => !task.completed);
+        case 'completed':
+            return tasks.filter(task => task.completed);
+        default:
+            return tasks;
+    }
+}
+
+function updateTaskCounters(tasks) {
+    const totalTasks = tasks.length;
+    const completedTasks = tasks.filter(task => task.completed).length;
+    const activeTasks = totalTasks - completedTasks;
+
     const counterElement = document.getElementById('taskCount');
     if (counterElement) {
-        counterElement.textContent = taskCounter;
+        counterElement.innerHTML = `
+            <span class="total-count">Всего: ${totalTasks}</span>
+            <span class="active-count">В процессе: ${activeTasks}</span>
+            <span class="completed-count">Выполнено: ${completedTasks}</span>
+        `;
     }
 }
 
@@ -93,10 +111,21 @@ function displayTasks(tasks) {
     const tasksList = document.getElementById('tasksList');
 
     if (tasks.length === 0) {
+        let message = '';
+        switch (currentFilter) {
+            case 'active':
+                message = 'Нет активных задач! Все задачи выполнены.';
+                break;
+            case 'completed':
+                message = 'Нет выполненных задач.';
+                break;
+            default:
+                message = 'Пока нет задач! Добавьте первую задачу выше';
+        }
+
         tasksList.innerHTML = `
             <div class="empty-state">
-                <p>Пока нет задач!</p>
-                <p>Добавьте первую задачу выше</p>
+                <p>${message}</p>
             </div>
         `;
         return;
@@ -110,10 +139,10 @@ function displayTasks(tasks) {
 
         taskElement.innerHTML = `
             <div class="task-header">
-                <div class="task-title">${escapeHtml(task.title)}</div>
+                <div class="task-title">${escapeHtml(truncateText(task.title, 100))}</div>
                 <div class="task-status">${task.completed ? 'Выполнено' : 'В процессе'}</div>
             </div>
-            <div class="task-desc">${escapeHtml(task.description || 'Нет описания')}</div>
+            <div class="task-desc">${escapeHtml(truncateText(task.description || 'Нет описания', 200))}</div>
             <div class="task-date">Создано: ${new Date(task.createdAt).toLocaleString()}</div>
             <div class="task-actions">
                 <button class="btn-edit" onclick="editTaskWithPrompt(${task.id})">
@@ -130,6 +159,13 @@ function displayTasks(tasks) {
 
         tasksList.appendChild(taskElement);
     });
+}
+
+
+function truncateText(text, maxLength) {
+    if (!text) return '';
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
 }
 
 async function editTaskWithPrompt(id) {
@@ -199,6 +235,19 @@ async function toggleComplete(id, currentStatus) {
     }
 }
 
+function setFilter(filter) {
+    currentFilter = filter;
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.filter === filter) {
+            btn.classList.add('active');
+        }
+    });
+
+    loadTasks();
+}
+
 function escapeHtml(text) {
     if (!text) return '';
     const div = document.createElement('div');
@@ -229,8 +278,14 @@ function setupKeyboardShortcuts() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+function initializeApp() {
     loadTasks();
+
     setupKeyboardShortcuts();
+
     document.getElementById('taskTitle')?.focus();
-});
+
+    setFilter('all');
+}
+
+document.addEventListener('DOMContentLoaded', initializeApp);

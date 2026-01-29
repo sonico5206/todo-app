@@ -30,14 +30,14 @@ h1 {
 
 h3 {
     color: #4a5568;
-    margin-bottom: 20px; /* Добавили отступ */
+    margin-bottom: 20px;
     font-size: 1.2rem;
 }
 
 .add-task {
     margin-bottom: 30px;
     background: #f8f9fa;
-    padding: 25px; /* Увеличили padding */
+    padding: 25px;
     border-radius: 10px;
 }
 
@@ -45,11 +45,13 @@ h3 {
 .add-task textarea {
     width: 100%;
     padding: 12px;
-    margin-bottom: 15px; /* Увеличили отступ между полями */
+    margin-bottom: 15px;
     border: 2px solid #ddd;
     border-radius: 6px;
     font-size: 16px;
     transition: border-color 0.3s;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .add-task input:focus,
@@ -62,6 +64,8 @@ h3 {
 .add-task textarea {
     height: 80px;
     resize: vertical;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .add-task button {
@@ -75,7 +79,7 @@ h3 {
     width: 100%;
     transition: all 0.3s;
     font-weight: bold;
-    margin-top: 10px; /* Добавили отступ сверху */
+    margin-top: 10px;
 }
 
 .add-task button:hover {
@@ -83,9 +87,34 @@ h3 {
     transform: translateY(-1px);
 }
 
-/* Убрали hint стили */
-.hint {
-    display: none;
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.filter-btn:hover {
+    background: #f0f4ff;
+    transform: translateY(-1px);
+}
+
+.filter-btn.active {
+    background: #667eea;
+    color: white;
 }
 
 .tasks-list {
@@ -137,6 +166,10 @@ h3 {
     font-weight: bold;
     color: #333;
     flex: 1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 }
 
 .task-status {
@@ -145,6 +178,7 @@ h3 {
     background: #f1f5f9;
     padding: 4px 8px;
     border-radius: 4px;
+    white-space: nowrap;
 }
 
 .task-desc {
@@ -154,6 +188,12 @@ h3 {
     padding: 10px;
     background: #f9fafb;
     border-radius: 6px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    min-height: 24px;
+    max-height: 150px;
+    overflow-y: auto;
 }
 
 .task-date {
@@ -161,6 +201,7 @@ h3 {
     font-size: 14px;
     margin-bottom: 15px;
     padding-left: 5px;
+    word-wrap: break-word;
 }
 
 .task-actions {
@@ -180,6 +221,7 @@ h3 {
     align-items: center;
     gap: 5px;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .task-actions button:hover {
@@ -223,11 +265,121 @@ h3 {
     border: 2px dashed #cbd5e0;
 }
 
-.empty-state p:first-child {
-    font-size: 20px;
-    font-weight: bold;
+.empty-state p {
+    font-size: 18px;
     margin-bottom: 10px;
     color: #4a5568;
+    word-wrap: break-word;
+}
+
+.edit-form {
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.edit-input,
+.edit-textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #4299e1;
+    border-radius: 6px;
+    font-size: 16px;
+    background: #f0f9ff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.edit-input:focus,
+.edit-textarea:focus {
+    outline: none;
+    border-color: #3182ce;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.edit-textarea {
+    height: 100px;
+    resize: vertical;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-save {
+    background: #48bb78;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    flex: 1;
+    transition: all 0.3s;
+}
+
+.btn-save:hover {
+    background: #38a169;
+    transform: translateY(-1px);
+}
+
+.btn-cancel {
+    background: #cbd5e0;
+    color: #4a5568;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    flex: 1;
+    transition: all 0.3s;
+}
+
+.btn-cancel:hover {
+    background: #a0aec0;
+    transform: translateY(-1px);
+}
+
+.task-counters {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.task-counters span {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+.total-count {
+    background: #667eea;
+    color: white;
+}
+
+.active-count {
+    background: #4299e1;
+    color: white;
+}
+
+.completed-count {
+    background: #68d391;
+    color: white;
 }
 
 .footer {
@@ -243,22 +395,28 @@ h3 {
     font-weight: bold;
     color: #4a5568;
     margin-bottom: 5px;
+    word-wrap: break-word;
 }
 
 .footer p:last-child {
     font-style: italic;
     color: #a0aec0;
-}
-
-#taskCount {
-    color: #667eea;
-    font-weight: bold;
-    font-size: 1.2em;
+    word-wrap: break-word;
 }
 
 @media (max-width: 768px) {
     .container {
         padding: 15px;
+    }
+
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-btn {
+        width: 100%;
+        text-align: center;
     }
 
     .task-actions {
@@ -269,4 +427,31 @@ h3 {
         width: 100%;
         justify-content: center;
     }
+
+    .task-counters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .task-counters span {
+        text-align: center;
+    }
+
+    .task-desc {
+        max-height: 200px;
+    }
+}
+
+.long-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

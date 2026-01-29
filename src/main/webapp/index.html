@@ -19,11 +19,27 @@
         </button>
     </div>
 
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">
+            Все задачи
+        </button>
+        <button class="filter-btn" data-filter="active" onclick="setFilter('active')">
+            В процессе
+        </button>
+        <button class="filter-btn" data-filter="completed" onclick="setFilter('completed')">
+            Выполнено
+        </button>
+    </div>
+
+    <div class="task-counters">
+        <div id="taskCount">
+        </div>
+    </div>
+
     <div id="tasksList" class="tasks-list">
     </div>
 
     <div class="footer">
-        <p>Всего задач: <span id="taskCount">0</span></p>
         <p>Выполнила: Кулич София</p>
     </div>
 </div>
