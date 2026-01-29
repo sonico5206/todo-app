@@ -1,6 +1,5 @@
 const API_URL = 'http://localhost:8080/api/tasks';
 
-// Загрузить все задачи
 async function loadTasks() {
     try {
         const response = await fetch(API_URL);
@@ -11,7 +10,6 @@ async function loadTasks() {
     }
 }
 
-// Добавить новую задачу
 async function addTask() {
     const title = document.getElementById('taskTitle').value;
     const desc = document.getElementById('taskDesc').value;
@@ -44,7 +42,6 @@ async function addTask() {
     }
 }
 
-// Обновить задачу
 async function updateTask(task) {
     try {
         await fetch(API_URL, {
@@ -60,7 +57,6 @@ async function updateTask(task) {
     }
 }
 
-// Удалить задачу
 async function deleteTask(id) {
     if (!confirm('Удалить задачу?')) return;
 
@@ -74,7 +70,6 @@ async function deleteTask(id) {
     }
 }
 
-// Отобразить задачи на странице
 function displayTasks(tasks) {
     const tasksList = document.getElementById('tasksList');
     tasksList.innerHTML = '';
@@ -91,10 +86,10 @@ function displayTasks(tasks) {
             <div class="task-date">Создано: ${new Date(task.createdAt).toLocaleString()}</div>
             <div class="task-actions">
                 <button class="btn-complete" onclick="toggleComplete(${task.id}, ${task.completed})">
-                    ${task.completed ? '❌ Отменить' : '✓ Выполнить'}
+                    ${task.completed ? 'Отменить' : 'Выполнить'}
                 </button>
                 <button class="btn-delete" onclick="deleteTask(${task.id})">
-                    🗑️ Удалить
+                    Удалить
                 </button>
             </div>
         `;
@@ -103,7 +98,6 @@ function displayTasks(tasks) {
     });
 }
 
-// Переключить статус выполнения
 function toggleComplete(id, currentStatus) {
     const title = prompt('Обновить название задачи:');
     const desc = prompt('Обновить описание задачи:');
@@ -120,17 +114,14 @@ function toggleComplete(id, currentStatus) {
     updateTask(task);
 }
 
-// Защита от XSS
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 }
 
-// Загрузить задачи при старте
 document.addEventListener('DOMContentLoaded', loadTasks);
 
-// Добавить задачу по Enter
 document.getElementById('taskTitle').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') addTask();
 });

@@ -18,13 +18,10 @@ public class Main {
     private static final TaskDAO taskDAO = new TaskDAO();
 
     public static void main(String[] args) throws IOException {
-        // Инициализируем базу данных
         DatabaseManager.initDatabase();
 
-        // Создаем HTTP сервер на порту 8080
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
-        // Настраиваем маршруты
         server.createContext("/api/tasks", new TasksHandler());
         server.createContext("/", new StaticFileHandler());
 
@@ -92,7 +89,6 @@ public class Main {
             String path = exchange.getRequestURI().getPath();
             if (path.equals("/")) path = "/index.html";
 
-            // Простая раздача статических файлов
             try {
                 InputStream is = getClass().getResourceAsStream("/webapp" + path);
                 if (is == null) {

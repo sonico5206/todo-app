@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DatabaseManager {
-    // Указываем путь относительно места запуска программы
     private static final String DB_FOLDER = "data";
     private static final String DB_NAME = "todo.db";
     private static final String DB_PATH = DB_FOLDER + "/" + DB_NAME;
@@ -24,21 +23,20 @@ public class DatabaseManager {
             Path folderPath = Paths.get(DB_FOLDER);
             if (!Files.exists(folderPath)) {
                 Files.createDirectories(folderPath);
-                System.out.println("📁 Created database folder: " +
+                System.out.println("Created database folder: " +
                         folderPath.toAbsolutePath());
             }
 
-            // Проверяем, есть ли файл БД
             Path dbPath = Paths.get(DB_PATH);
             if (!Files.exists(dbPath)) {
-                System.out.println("🆕 Database will be created at: " +
+                System.out.println("Database will be created at: " +
                         dbPath.toAbsolutePath());
             } else {
-                System.out.println("✅ Using existing database at: " +
+                System.out.println("Using existing database at: " +
                         dbPath.toAbsolutePath());
             }
         } catch (Exception e) {
-            System.err.println("❌ Failed to setup database: " + e.getMessage());
+            System.err.println("Failed to setup database: " + e.getMessage());
         }
     }
 
@@ -55,14 +53,13 @@ public class DatabaseManager {
         try (Connection conn = getConnection();
              var stmt = conn.createStatement()) {
             stmt.execute(sql);
-            System.out.println("✅ Database initialized successfully");
+            System.out.println("Database initialized successfully");
         } catch (SQLException e) {
-            System.err.println("❌ Database initialization failed: " + e.getMessage());
+            System.err.println("Database initialization failed: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    // Дополнительный метод для получения информации о БД
     public static String getDatabaseInfo() {
         try {
             Path dbPath = Paths.get(DB_PATH);
