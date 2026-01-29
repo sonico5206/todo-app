@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #667eea;
+}
+
+.add-task {
+    margin-bottom: 30px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.add-task input,
+.add-task textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.add-task input:focus,
+.add-task textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.add-task textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+.add-task button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.add-task button:hover {
+    background: #5a67d8;
+}
+
+.task {
+    background: white;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.task:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.task.completed {
+    background: #f0fff4;
+    border-color: #68d391;
+    opacity: 0.8;
+}
+
+.task.completed .task-title {
+    text-decoration: line-through;
+    color: #718096;
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.task-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.task-desc {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.task-date {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.task-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.btn-complete {
+    background: #68d391;
+    color: white;
+}
+
+.btn-complete:hover {
+    background: #48bb78;
+}
+
+.btn-delete {
+    background: #fc8181;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #f56565;
+}
